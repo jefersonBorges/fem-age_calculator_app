@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.attribution {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 2em;
+  text-align: center;
+}/*# sourceMappingURL=main.css.map */
