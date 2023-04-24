@@ -98,6 +98,8 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 - [Interactive controls are keyboard focusable](https://developer.chrome.com/docs/lighthouse/accessibility/focusable-controls/) - This article helping me better understand the focus indicator in the interactive elements on the page.
 
+- [ARIA: alert role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role) - This article is helping me understand the role 'alert' on the page's accessibility features.
+
 ## Author
 
 - GitHub - [jefersonBorges](https://github.com/jefersonBorges/jefersonBorges)
