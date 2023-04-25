@@ -27,6 +27,7 @@ body {
   justify-content: center;
   align-items: center;
 
+  min-width: $w-mobile-min;
   width: 100%;
   max-width: $w-desktop;
   min-height: 100vh;
@@ -35,7 +36,7 @@ body {
 }
 
 .main {
-  width: 700px;
+  width: $w-ini-main;
   padding: $s-400;
   margin-bottom: $s-400;
 
@@ -78,10 +79,14 @@ body {
 
   .label {
     margin-bottom: $s-050;
-
+    text-transform: uppercase;
     font-size: $fs-200;
     font-weight: $fw-400;
     color: $smokey-grey;
+
+    &.error{
+      color: $light-red;
+    }
   }
 
   .input {
@@ -93,6 +98,7 @@ body {
 
     border: 1px solid $smokey-grey;
     border-radius: $s-050;
+    background-color: $white;
 
     appearance: textfield;
     
@@ -100,6 +106,10 @@ body {
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
+    }
+
+    &.error{
+      border: 1px solid  $light-red;
     }
     
     &:hover, 
@@ -111,7 +121,13 @@ body {
 
   .error-message {
     /*Styling after JS DOMmination*/
-    color: red;
+    padding-left: $s-050;
+    padding-top: $s-050;
+
+    color: $light-red;
+    font-style: italic;
+    font-size: $fs-100;
+    font-weight: 300;
   }
 }
 
@@ -193,9 +209,11 @@ body {
 }
 
 .age-result {
+  color: $off-black;
   font-size: $fs-800;
   font-weight: $fw-800;
   font-style: italic;
+  line-height: 1em;
 
   .result {
     color: $purple;

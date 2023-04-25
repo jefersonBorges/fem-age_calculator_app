@@ -100,6 +100,8 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 - [ARIA: alert role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role) - This article is helping me understand the role 'alert' on the page's accessibility features.
 
+- [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) - Documentation for Javascript Date object.
+
 ## Author
 
 - GitHub - [jefersonBorges](https://github.com/jefersonBorges/jefersonBorges)
