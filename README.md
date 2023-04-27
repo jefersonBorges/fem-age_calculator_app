@@ -102,6 +102,10 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 - [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) - Documentation for Javascript Date object.
 
+- [Ano Bissexto](https://pt.wikipedia.org/wiki/Ano_bissexto) - Shows the rules for a Leap year.
+
+-[Understanding Regular Expressions in JavaScript](https://webtips.dev/understanding-regular-expressions-in-javascript) -
+
 ## Author
 
 - GitHub - [jefersonBorges](https://github.com/jefersonBorges/jefersonBorges)
