@@ -119,15 +119,20 @@ body {
     }
   }
 
-  .error-message {
-    /*Styling after JS DOMmination*/
-    padding-left: $s-050;
-    padding-top: $s-050;
+  .message {
+    visibility: hidden;
+    
+    &.error{
+      visibility: visible;
 
-    color: $light-red;
-    font-style: italic;
-    font-size: $fs-100;
-    font-weight: 300;
+      padding-left: $s-050;
+      padding-top: $s-050;
+  
+      color: $light-red;
+      font-style: italic;
+      font-size: $fs-100;
+      font-weight: 300;
+    }
   }
 }
 

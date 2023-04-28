@@ -21,29 +21,29 @@
   
       <form class="form" id="birth_date_form" name="birth_date_form" aria-label="insert your age">
     
-        <div class="form-section">
-          <label class="label error" for="day" id="label_day">Day</label>
-          <input class="input error" type="number" name="day" id="input_day" placeholder="DD" value="25">
-          <span class="error-message" role="alert" id="error_day">Test</span>
+        <div class="form-section" id="day_section">
+          <label class="label" for="day" id="label_day">Day</label>
+          <input class="input" type="number" name="day" id="input_day" placeholder="DD">
+          <span class="message" role="alert" id="error_day"></span>
         </div>
       
-        <div class="form-section">
+        <div class="form-section" id="month_section">
           <label class="label" for="month" id="label_month">Month</label>
           <input class="input" type="number" name="month" id="input_month" placeholder="MM">
-          <span class="error-message" role="alert" id="error_month">Test</span>
+          <span class="message" role="alert" id="error_month"></span>
         </div>
     
-        <div class="form-section">
+        <div class="form-section" id="year_section">
           <label class="label" for="year" id="label_year">Year</label>
           <input class="input" type="number" name="year" id="input_year" placeholder="YYYY">
-          <span class="error-message" role="alert" id="error_year">Test</span>
+          <span class="message" role="alert" id="error_year"></span>
         </div>
     
       </form>
     
       <div class="button-container">
         <hr class="hr">
-        <button class="button" type="submit" form="birth_date" aria-label="Calculate your age">
+        <button class="button" type="submit" form="birth_date_form" aria-label="Calculate your age">
           <img src="./assets/images/icon-arrow.svg" alt="arrow-down-icon">
         </button>
         <hr class="hr">

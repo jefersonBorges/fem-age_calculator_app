@@ -155,8 +155,11 @@ body {
   border: 1px solid hsl(259, 100%, 65%);
   cursor: pointer;
 }
-.form-section .error-message {
-  /*Styling after JS DOMmination*/
+.form-section .message {
+  visibility: hidden;
+}
+.form-section .message.error {
+  visibility: visible;
   padding-left: 0.5rem;
   padding-top: 0.5rem;
   color: hsl(0, 100%, 67%);
