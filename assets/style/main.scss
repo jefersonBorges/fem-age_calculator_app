@@ -120,12 +120,12 @@ body {
   }
 
   .message {
+
     visibility: hidden;
     
     &.error{
       visibility: visible;
-
-      padding-left: $s-050;
+      
       padding-top: $s-050;
   
       color: $light-red;

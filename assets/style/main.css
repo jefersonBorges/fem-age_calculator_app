@@ -160,7 +160,6 @@ body {
 }
 .form-section .message.error {
   visibility: visible;
-  padding-left: 0.5rem;
   padding-top: 0.5rem;
   color: hsl(0, 100%, 67%);
   font-style: italic;
