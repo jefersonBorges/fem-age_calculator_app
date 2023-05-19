@@ -1,88 +1,137 @@
 const ageCalculator = {
-  init: function(){
+
+  init() {
     this.cacheSelectors()
     this.bindEvents()
   },
 
-  cacheSelectors: function(){
-    this.$date_form = document.querySelector('#date_form')
-    this.$age_years = document.querySelector('#age_years')
-    this.$age_months = document.querySelector('#age_months')
-    this.$age_days = document.querySelector('#age_days')
+  cacheSelectors() {
+    this.$dateForm = document.querySelector('#date_form')
+    this.$ageYears = document.querySelector('#age_years')
+    this.$ageMonths = document.querySelector('#age_months')
+    this.$ageDays = document.querySelector('#age_days')
   },
 
-  bindEvents: function(){
-    this.$date_form.onsubmit = this.Events.calculateAge.bind(this)
+  bindEvents() {
+    this.$dateForm.onsubmit = this.Events.calculateAge.bind(this)
   },
 
   Events:{
 
-    calculateAge : function(e){
+    calculateAge(e) {
       e.preventDefault()
-      this.Error.removeAll(e)
+      this.errorRemoveAll(e)
 
-      const currentDate = this.newDate()
-      const currentYear = newDate.getFullYear()
-      const currentMonth = newDate.getMonth()
-      const currentDay = currentDate.getDate()
+      const year = this.getYearValue(e)
+      const month = this.getMonthValue(e)
+      const day = this.getDayValue(e, year, month)
 
-      const year = this.getInputYear(e.target.elements.year, currentYear)
-      const month = this.getInputMonth(e.target.elements.month)
-      const day = this.getInputDay(e.target.elements.day, month, year)
+      if(year && month && day) {
 
-      if(year, month, day){
-        const inputDate = this.newDate(year, month, day)
+        const inputDateValue = this.getNewDate(year, month, day)
+        const currentDate = this.getNewDate()
 
-        const age = this.Calculate.ageBetweenDates(inputDate, currentDate)
+        const age = this.Calculate.ageBetweenDates(inputDateValue, currentDate)
         this.displayAge(age)
       }
+
     },
     
   },
 
-  getInputYear(inputElement, currentYear){
-    try{
-      const year = this.Validate.input(inputElement)
-      return this.Validate.year(year, currentYear)
+  getYearValue(e) {
 
-    } catch(err) {
-      this.Error.display(inputElement, err)
-    }
+    const yearInputElement = e.target.elements.year
+    const inputNotEmpty = yearInputElement.value !== ''
+
+    try {
+      
+      if(inputNotEmpty) {
+
+        const currentYear = this.getNewDate().getFullYear()
+        const isInThePast = yearInputElement.value <= currentYear
+
+        if(isInThePast) {
+
+          const inputYearValue = parseInt(yearInputElement.value)
+          const isFourDigits = this.regex.year.test(inputYearValue)
+
+          if(isFourDigits) {
+
+            return inputYearValue
+
+          } else {throw this.Error.invalidYearDigits}
+
+        } else { throw this.Error.invalidYear }
+
+      } else {throw this.Error.required}
+
+    } catch(err) {this.errorDisplay(yearInputElement, err.message) }
+
   },
 
-  getInputMonth(inputElement){
-    try{
-      const month = this.Validate.input(inputElement)
-      return this.Validate.month(month)
+  getMonthValue(e) {
 
-    } catch(err){
-      this.Error.display(inputElement, err)
-    }
+    const monthInputElement = e.target.elements.month
+    const inputNotEmpty = monthInputElement.value !== ''
+
+    try{
+
+      if(inputNotEmpty){
+
+        const inputMonthValue = parseInt(monthInputElement.value - 1)
+        const isValidMonth = this.regex.month.test(inputMonthValue)
+
+        if(isValidMonth) {
+
+          return inputMonthValue
+
+        } else { throw this.Error.invalidMonth}
+
+      } else { throw this.Error.required }
+      
+    } catch(err) { this.errorDisplay(monthInputElement, err.message) }
   },
 
-  getInputDay(dayInputElement, month, year){
-    try{
-      const day = this.Validate.input(dayInputElement)
-      return this.Validate.day(day, month, year)
+  getDayValue(e, year, month) {
 
-    } catch(err){
-      this.Error.display(dayInputElement, err)
-    }
+    const dayInputElement = e.target.elements.day
+    const inputNotEmpty = dayInputElement.value !== ''
+
+    try{
+
+      if(inputNotEmpty) {
+        
+        const dayValue = parseInt(dayInputElement.value)
+        const daysOfMonth = this.Calculate.daysOfMonth(year, month)
+
+        const isCorrectValue = this.regex.day.test(dayValue)
+        const isWithinTheMonth = dayValue <= daysOfMonth
+
+        if(isCorrectValue && isWithinTheMonth) {
+
+          return dayValue
+
+        } else { throw this.Error.invalidDay }
+
+      } else { throw this.Error.required }
+
+    } catch(err) { this.errorDisplay(dayInputElement, err.message) }
     
   },
 
   displayAge: function(age){
     const delay = 60
-
-    this.incrementWithDelay(this.$age_years, age.totalYears, delay)
-    this.incrementWithDelay(this.$age_months, age.totalMonths, delay)
-    this.incrementWithDelay(this.$age_days, age.totalDays, delay)
+    
+    this.incrementWithDelay(this.$ageYears, age.totalYears, delay)
+    this.incrementWithDelay(this.$ageMonths, age.totalMonths, delay)
+    this.incrementWithDelay(this.$ageDays, age.totalDays, delay)
   },
 
   incrementWithDelay: function(element, endValue, delay){
-    element.innerText = 00
+    element.innerText = 0
+    const increment = 1
     let currentValue = parseInt(element.innerText)
-    let increment = 1
 
     const intervalId = setInterval(()=>{
 
@@ -93,18 +142,19 @@ const ageCalculator = {
 
       currentValue += increment
       element.innerText = currentValue
+
     }, delay)
 
   },
 
-
-  newDate: function(year, month, day){
+  getNewDate: function(year, month, day){
     const date = new Date()
 
     if(year && month && day){ 
       date.setFullYear(year, month, day) 
     }
 
+    date.setHours(00,00,00)
     return date
   },
 
@@ -114,25 +164,16 @@ const ageCalculator = {
       const startYear = startDate.getFullYear()
       const startMonth = startDate.getMonth()
 
-      const millis = this.millisBetweenDates(startDate, endDate)
-      const days = this.millisToDays(millis)
-      const years = this.daysToYears(days, startYear)
-      const months = this.daysToMonths(years.daysLeft, startMonth, startYear)
-      
-      const age  = {
-        totalYears : Math.round(years.totalYears),
-        totalMonths: Math.round(months.totalMonths),
-        totalDays: Math.round(months.daysLeft)
-      }
+      const millisInterval = this.millisBetweenDates(startDate, endDate)
+      const daysInterval = this.millisToDays(millisInterval)
 
-      return age
+      const {totalYears, daysLeft} = this.daysToYears(daysInterval, startYear)
+      const {totalMonths, totalDays} = this.daysToMonths(daysLeft, startMonth, startYear)
+      
+      return {totalYears, totalMonths, totalDays}
     },
 
     millisBetweenDates: function(startDate, endDate){
-
-      startDate.setHours(00,00,00)
-      endDate.setHours(00,00,00)
-
       return endDate.getTime() - startDate.getTime()
     },
 
@@ -163,19 +204,18 @@ const ageCalculator = {
 
     daysToMonths: function(days, startMonth, startYear){
       let totalMonths = 0
-      let daysLeft = days
+      let totalDays = days
       let daysOfMonth = this.daysOfMonth(startYear, startMonth)
 
-      while(daysLeft > daysOfMonth){
+      while(totalDays > daysOfMonth){
 
-        daysLeft -= daysOfMonth
+        totalDays -= daysOfMonth
         totalMonths++
         daysOfMonth = this.daysOfMonth(startYear, startMonth + totalMonths)
       }
 
-      return {totalMonths, daysLeft}
+      return {totalMonths, totalDays}
     },
-
 
     daysOfMonth: function(year, month){
       return new Date(year, month + 1, 0).getDate()
@@ -194,113 +234,71 @@ const ageCalculator = {
     },
   },
 
-  Validate: {
+  errorDisplay: function(inputElement, errMsg){
+    const element = inputElement.parentElement.children
 
-    input: function(inputElement){
+    for(el of element){
 
-      if(inputElement.value){
-        return parseInt(inputElement.value)
-      }
-      throw this.msg.required
-    },
-
-    year: function(yearValue, currentYear){
-
-      if(this.regex.year.test(yearValue)){
-
-        if(yearValue < currentYear){
-          return yearValue
-
-        } else { throw this.msg.invalid_year }
-
-      } else { throw this.msg.invalid_year_digits }
-      
-    },
-
-    month: function(monthValue){
-      const month = monthValue - 1
-      
-      if(this.regex.month.test(month)){
-        return month
+      if(el.className === "message"){
+        el.innerText = errMsg
       }
 
-      throw this.msg.invalid_month
-    },
+      el.classList.add("error")
+    }
+  },
 
-    day: function(dayValue, monthValue, yearValue){
+  errorRemove: function(inputElement){
+    const element = inputElement.parentElement.children
 
-      const daysInMonth = this.daysOfMonth(yearValue, monthValue)
+    for(el of element){
 
-      if(this.regex.day.test(dayValue) && dayValue <= daysInMonth){
-        return dayValue
+      if(el.className === "message"){
+        el.innerText = ''
       }
 
-      throw this.msg.invalid_day
-    },
+      el.classList.remove("error")
+    }
+  },
 
-    daysOfMonth: function(year, month){
-      return new Date(year, month + 1, 0).getDate()
-    },
-
-    regex: {
-      day: /^[1-9]$|^[1-2][0-9]$|^3[0-1]$/,
-      month: /^[0-9]$|^1[0-1]$/,
-      year: /\d{4}/,
-    },
-
-    msg: {
-      required: "This field is required",
-      invalid_day: "Must be a valid day",
-      invalid_month: "Must be a valid month",
-      invalid_year: "Must be in the past",
-      invalid_year_digits: "Must be a 4 digit year"
-    },
-
+  errorRemoveAll(e) {
+    this.errorRemove(e.target.elements.year)
+    this.errorRemove(e.target.elements.month)
+    this.errorRemove(e.target.elements.day)
   },
 
   Error: {
 
-    display: function(inputElement, errMsg){
-      const element = inputElement.parentElement.children
-
-      for(el of element){
-
-        if(el.className == this.class.errDisplay){
-          el.innerText = errMsg
-        }
-
-        el.classList.add(this.class.errStyle)
-      }
+    required: {
+      name: "required",
+      message : "This field is required",
     },
 
-    remove: function(inputElement){
-      const element = inputElement.parentElement.children
-
-      for(el of element){
-
-        if(el.className == this.class.errDisplay){
-          el.innerText = this.msg.empty
-        }
-
-        el.classList.remove(this.class.errStyle)
-      }
+    invalidDay: {
+      name: "invalidDay",
+      message: "Must be a valid day",
     },
 
-    removeAll: function(e){
-      this.remove(e.target.elements.year)
-      this.remove(e.target.elements.month)
-      this.remove(e.target.elements.day)
+    invalidMonth: {
+      name: "invalidMonth",
+      message: "Must be a valid month",
     },
 
-    class:{
-      errDisplay: "message",
-      errStyle: "error",
+    invalidYear: {
+      name: "invalidYear",
+      message: "Must be in the past",
     },
 
-    msg: {
-      empty: "",
-    }
-    
+    invalidYearDigits: {
+      name: "invalidYearDigits",
+      message: "Must be a 4 digit year",
+    },
+
+  },
+
+  regex: {
+    day: /^[1-9]$|^[1-2][0-9]$|^3[0-1]$/,
+    month: /^[0-9]$|^1[0-1]$/,
+    year: /\d{4}/,
   },
 
 }
