@@ -1,6 +1,6 @@
 # Frontend Mentor - Age calculator app solution
 
-This is a solution to the [Age calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/age-calculator-app-dF9DFFpj-Q).
+This is a solution to the [Age calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/age-calculator-app-dF9DFFpj-Q). This web application allows users to input their birthdate and calculates their age in years, months, and days. The application features a user-friendly interface, responsive design, and error handling for input validation. I also implemented object-oriented programming and event handling concepts to enhance the functionality.
 
 Copy
 
@@ -18,7 +18,6 @@ Copy
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -41,11 +40,15 @@ Users should be able to:
 
 #### Mobile
 
-![Mobile Screenshot](./screenshot.jpg)
+![Mobile Screenshot](./design/screenshot-mobile.jpeg)
 
 #### Desktop
 
-![Desktop Screenshot](./screenshot.jpg)
+![Desktop Screenshot](./design/screenshot-desktop.jpeg)
+![Desktop Screenshot active states](./design/screenshot-desktop-active-states.jpeg)
+![Desktop Screenshot error 1](./design/screenshot-desktop-error-1.jpeg)
+![Desktop Screenshot error 2](./design/screenshot-desktop-error-2.jpeg)
+![Desktop Screenshot error 3](./design/screenshot-desktop-error-3.jpeg)
 
 ### Links
 
@@ -60,37 +63,73 @@ Users should be able to:
 - Flexbox
 - CSS Grid
 - SASS
-- JavaScript DOM
+- JavaScript
+  - DOM
+  - OOP
+  - Regex
+  - Error Handling
+  - Event Handling
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+The validation part of the JavaScript code was interesting to me because it helped me better understand the separation of concerns. In this case, it involves a function nested within the 'ageCalculator' object, which is used for extracting the month value from the input and validating it according to the rules for the month value.
 
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+
+  getMonthValue(e) {
+
+    const monthInputElement = e.target.elements.month
+    const inputNotEmpty = monthInputElement.value !== ''
+
+    try{
+
+      if(inputNotEmpty) {
+
+        const inputMonthValue = parseInt(monthInputElement.value - 1)
+        const isValidMonth = this.regex.month.test(inputMonthValue)
+
+        if(isValidMonth) {
+
+          return inputMonthValue
+
+        } else { throw this.Error.invalidMonth }
+
+      } else { throw this.Error.required }
+      
+    } catch(err) { this.errorDisplay(monthInputElement, err.message) }
+  },
+  
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+Another interesting aspect is the use of the setInterval() function to increment the values of the year, month, and day elements. This is a nested function within the 'ageCalculator' object that receives an HTML element and increments its numerical value based on the endValue, with a specified delay between each increment.
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```js
+
+  incrementWithDelay(element, endValue, delay) {
+    
+    element.innerText = 0
+    const increment = 1
+    let currentValue = parseInt(element.innerText)
+
+    const intervalId = setInterval( ()=>{
+
+      if(currentValue >= endValue) {
+        clearInterval(intervalId)
+        return
+      }
+
+      currentValue += increment
+      element.innerText = currentValue
+
+    }, delay)
+
+  },
+
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
-
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+I would like to keep learning about OOP, event handling and error handling in JavaScript, since those were extremely helpful in this project.
 
 ### Useful resources
 
@@ -104,7 +143,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 - [Ano Bissexto](https://pt.wikipedia.org/wiki/Ano_bissexto) - Shows the rules for a Leap year.
 
--[Understanding Regular Expressions in JavaScript](https://webtips.dev/understanding-regular-expressions-in-javascript) -
+- [Understanding Regular Expressions in JavaScript](https://webtips.dev/understanding-regular-expressions-in-javascript) - An article abaout regular expressions for validation uses on Js.
 
 ## Author
 
@@ -112,10 +151,4 @@ Use this section to outline areas that you want to continue focusing on in futur
 - Frontend Mentor - [@jefersonBorges](https://www.frontendmentor.io/profile/jefersonBorges)
 - Linkedin - [Jeferson Borges Linkedin](https://www.linkedin.com/in/jeferson-borges-543b34229)
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+---

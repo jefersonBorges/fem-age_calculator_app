@@ -47,7 +47,7 @@ body {
 
 .form {
   display: grid;
-  grid-template-columns: repeat(3, 22%);
+  grid-template-columns: repeat(3, 23%);
   column-gap: 5%;
   grid-template-rows: auto;
   
@@ -130,7 +130,7 @@ body {
   
       color: $light-red;
       font-style: italic;
-      font-size: $fs-100;
+      font-size: $fs-050;
       font-weight: 300;
     }
   }

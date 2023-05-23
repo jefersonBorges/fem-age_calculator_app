@@ -40,7 +40,7 @@
   font-weight: 800 900;
   font-style: italic;
 }
-/*9px*/
+/*10px*/
 /*11px*/
 /*16px*/
 /*24px*/
@@ -98,7 +98,7 @@ body {
 
 .form {
   display: grid;
-  grid-template-columns: repeat(3, 22%);
+  grid-template-columns: repeat(3, 23%);
   -moz-column-gap: 5%;
        column-gap: 5%;
   grid-template-rows: auto;
@@ -164,7 +164,7 @@ body {
   padding-top: 0.5rem;
   color: hsl(0, 100%, 67%);
   font-style: italic;
-  font-size: 0.69rem;
+  font-size: 0.62rem;
   font-weight: 300;
 }
 
