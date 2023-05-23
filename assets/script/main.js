@@ -32,6 +32,7 @@ const ageCalculator = {
         const currentDate = this.getNewDate()
 
         const age = this.Calculate.ageBetweenDates(inputDateValue, currentDate)
+
         this.displayAge(age)
       }
 
@@ -120,7 +121,7 @@ const ageCalculator = {
     
   },
 
-  displayAge: function(age){
+  displayAge(age){
     const delay = 60
     
     this.incrementWithDelay(this.$ageYears, age.totalYears, delay)
@@ -128,7 +129,7 @@ const ageCalculator = {
     this.incrementWithDelay(this.$ageDays, age.totalDays, delay)
   },
 
-  incrementWithDelay: function(element, endValue, delay){
+  incrementWithDelay(element, endValue, delay){
     element.innerText = 0
     const increment = 1
     let currentValue = parseInt(element.innerText)
@@ -147,7 +148,7 @@ const ageCalculator = {
 
   },
 
-  getNewDate: function(year, month, day){
+  getNewDate(year, month, day){
     const date = new Date()
 
     if(year && month && day){ 
@@ -160,7 +161,7 @@ const ageCalculator = {
 
   Calculate: {
 
-    ageBetweenDates: function(startDate, endDate){
+    ageBetweenDates(startDate, endDate){
       const startYear = startDate.getFullYear()
       const startMonth = startDate.getMonth()
 
@@ -173,11 +174,11 @@ const ageCalculator = {
       return {totalYears, totalMonths, totalDays}
     },
 
-    millisBetweenDates: function(startDate, endDate){
+    millisBetweenDates(startDate, endDate){
       return endDate.getTime() - startDate.getTime()
     },
 
-    millisToDays: function(millis){
+    millisToDays(millis){
       return Math.round(
         millis /
         this.index.millisToSecs /
@@ -187,7 +188,7 @@ const ageCalculator = {
       )
     },
 
-    daysToYears: function(days, startYear){
+    daysToYears(days, startYear){
       let totalYears = 0
       let daysLeft = days
       let daysOfYear = this.daysOfYear(startYear)
@@ -202,7 +203,7 @@ const ageCalculator = {
       return {totalYears, daysLeft}
     },
 
-    daysToMonths: function(days, startMonth, startYear){
+    daysToMonths(days, startMonth, startYear){
       let totalMonths = 0
       let totalDays = days
       let daysOfMonth = this.daysOfMonth(startYear, startMonth)
@@ -217,11 +218,11 @@ const ageCalculator = {
       return {totalMonths, totalDays}
     },
 
-    daysOfMonth: function(year, month){
+    daysOfMonth(year, month){
       return new Date(year, month + 1, 0).getDate()
     },
 
-    daysOfYear: function(year){
+    daysOfYear(year){
       const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)
       return isLeapYear ? 366 : 365
     },
@@ -234,7 +235,7 @@ const ageCalculator = {
     },
   },
 
-  errorDisplay: function(inputElement, errMsg){
+  errorDisplay(inputElement, errMsg){
     const element = inputElement.parentElement.children
 
     for(el of element){
@@ -247,7 +248,7 @@ const ageCalculator = {
     }
   },
 
-  errorRemove: function(inputElement){
+  errorRemove(inputElement){
     const element = inputElement.parentElement.children
 
     for(el of element){
