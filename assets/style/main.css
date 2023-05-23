@@ -40,6 +40,7 @@
   font-weight: 800 900;
   font-style: italic;
 }
+/*9px*/
 /*11px*/
 /*16px*/
 /*24px*/
@@ -97,17 +98,20 @@ body {
 
 .form {
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(3, 22%);
+  -moz-column-gap: 5%;
+       column-gap: 5%;
   grid-template-rows: auto;
 }
 
 @media screen and (max-width: 31rem) {
   .main {
+    padding: 4rem 2rem;
     border-radius: 1.5rem;
     border-bottom-right-radius: 7.5rem;
   }
   .form {
-    grid-template-columns: repeat(3, 33%);
+    grid-template-columns: repeat(3, 30%);
     grid-template-rows: auto;
   }
 }
@@ -119,13 +123,10 @@ body {
   width: 100%;
   height: 100%;
 }
-.form-section:not(:last-of-type) {
-  padding-right: 2rem;
-}
 .form-section .label {
   margin-bottom: 0.5rem;
   text-transform: uppercase;
-  font-size: 1rem;
+  font-size: 0.69rem;
   font-weight: 400;
   color: hsl(0, 1%, 44%);
 }
@@ -135,7 +136,7 @@ body {
 .form-section .input {
   width: 100%;
   padding: 0.5rem;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   border: 1px solid hsl(0, 1%, 44%);
   border-radius: 0.5rem;
@@ -156,10 +157,10 @@ body {
   cursor: pointer;
 }
 .form-section .message {
-  visibility: hidden;
+  display: none;
 }
 .form-section .message.error {
-  visibility: visible;
+  display: block;
   padding-top: 0.5rem;
   color: hsl(0, 100%, 67%);
   font-style: italic;
@@ -168,8 +169,8 @@ body {
 }
 
 @media screen and (max-width: 31rem) {
-  .form-section:not(:last-of-type) {
-    padding-right: 1rem;
+  .form-section .label {
+    font-size: 1rem;
   }
   .form-section .input {
     font-size: 1.5rem;
@@ -207,8 +208,8 @@ body {
   .button-container {
     grid-template-columns: repeat(3, 33%);
     grid-template-rows: repeat(2, 50%);
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
   }
   .button-container .hr {
     grid-area: 1/1/1/4;

@@ -107,11 +107,15 @@ const ageCalculator = {
         const daysOfMonth = this.Calculate.daysOfMonth(year, month)
 
         const isCorrectValue = this.regex.day.test(dayValue)
-        const isWithinTheMonth = dayValue <= daysOfMonth
 
-        if(isCorrectValue && isWithinTheMonth) {
+        if(isCorrectValue) {
+          const isWithinTheMonth = dayValue <= daysOfMonth
 
-          return dayValue
+          if(isWithinTheMonth) {
+
+            return dayValue
+
+          } else { throw this.Error.invalidDate }
 
         } else { throw this.Error.invalidDay }
 
@@ -119,6 +123,17 @@ const ageCalculator = {
 
     } catch(err) { this.errorDisplay(dayInputElement, err.message) }
     
+  },
+
+  getNewDate(year, month, day){
+    const date = new Date()
+
+    if(year && month && day){ 
+      date.setFullYear(year, month, day) 
+    }
+
+    date.setHours(00,00,00)
+    return date
   },
 
   displayAge(age){
@@ -146,17 +161,6 @@ const ageCalculator = {
 
     }, delay)
 
-  },
-
-  getNewDate(year, month, day){
-    const date = new Date()
-
-    if(year && month && day){ 
-      date.setFullYear(year, month, day) 
-    }
-
-    date.setHours(00,00,00)
-    return date
   },
 
   Calculate: {
@@ -277,6 +281,11 @@ const ageCalculator = {
     invalidDay: {
       name: "invalidDay",
       message: "Must be a valid day",
+    },
+
+    invalidDate: {
+      name: "invalidDate",
+      message: "Must be a valid date",
     },
 
     invalidMonth: {
