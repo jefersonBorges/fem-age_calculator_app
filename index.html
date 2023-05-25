@@ -18,24 +18,25 @@
   <div class="container">
 
     <main class="main">
+      <h1 class="title-hidden">Age calculator</h1>
   
       <form class="form" id="date_form" name="date_form" aria-label="insert your age">
     
         <div class="form-section">
           <label class="label" for="day">Day</label>
-          <input class="input" type="number" name="day" placeholder="DD">
+          <input class="input" type="number" name="day" id="day" placeholder="DD">
           <span class="message" role="alert"></span>
         </div>
       
         <div class="form-section">
           <label class="label" for="month">Month</label>
-          <input class="input" type="number" name="month" placeholder="MM">
+          <input class="input" type="number" name="month" id="month" placeholder="MM">
           <span class="message" role="alert"></span>
         </div>
     
         <div class="form-section">
           <label class="label" for="year">Year</label>
-          <input class="input" type="number" name="year" placeholder="YYYY">
+          <input class="input" type="number" name="year" id="year" placeholder="YYYY">
           <span class="message" role="alert"></span>
         </div>
     
@@ -50,7 +51,7 @@
       </div>
       
       <section class="age-result">
-        <h1 class="title-hidden">Result</h1>
+        <h2 class="title-hidden">Result</h2>
         <p><strong class="result" id="age_years">--</strong> years</p>
         <p><strong class="result" id="age_months">--</strong> months</p>
         <p><strong class="result" id="age_days">--</strong> days</p>
