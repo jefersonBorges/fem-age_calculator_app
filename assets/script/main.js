@@ -50,7 +50,7 @@ const ageCalculator = {
       if(inputNotEmpty) {
 
         const currentYear = this.getNewDate().getFullYear()
-        const isInThePast = yearInputElement.value <= currentYear
+        const isInThePast = yearInputElement.value < currentYear
 
         if(isInThePast) {
 
@@ -173,8 +173,8 @@ const ageCalculator = {
       const millisInterval = this.millisBetweenDates(startDate, endDate)
       const daysInterval = this.millisToDays(millisInterval)
 
-      const { totalYears, daysLeft } = this.daysToYears(daysInterval, startYear)
-      const { totalMonths, totalDays } = this.daysToMonths(daysLeft, startMonth, startYear)
+      const { monthsLeft, totalDays } = this.daysToMonths(daysInterval, startMonth, startYear)
+      const { totalYears, totalMonths } = this.monthsToYears(monthsLeft)
       
       return { totalYears, totalMonths, totalDays }
     },
@@ -193,34 +193,33 @@ const ageCalculator = {
       )
     },
 
-    daysToYears(days, startYear) {
+    monthsToYears(months) {
       let totalYears = 0
-      let daysLeft = days
-      let daysOfYear = this.daysOfYear(startYear)
+      let totalMonths = months
 
-      while(daysLeft > daysOfYear) {
+      while(totalMonths >= this.index.monthsToYears) {
 
-        daysLeft -= daysOfYear
+        totalMonths -= this.index.monthsToYears
         totalYears++
-        daysOfYear = this.daysOfYear(startYear + totalYears)
       }
 
-      return { totalYears, daysLeft }
+      return { totalYears, totalMonths }
     },
 
     daysToMonths(days, startMonth, startYear) {
-      let totalMonths = 0
+      let monthsLeft = 0
       let totalDays = days
       let daysOfMonth = this.daysOfMonth(startYear, startMonth)
 
-      while(totalDays > daysOfMonth) {
+      while(totalDays >= daysOfMonth) {
 
         totalDays -= daysOfMonth
-        totalMonths++
-        daysOfMonth = this.daysOfMonth(startYear, startMonth + totalMonths)
+        monthsLeft++
+        daysOfMonth = this.daysOfMonth(startYear, startMonth + monthsLeft)
       }
 
-      return { totalMonths, totalDays }
+      console.log({monthsLeft, totalDays})
+      return { monthsLeft, totalDays }
     },
 
     daysOfMonth(year, month) {
@@ -237,6 +236,7 @@ const ageCalculator = {
       secsToMins: 60,
       minsToHrs: 60,
       hrsToDays: 24,
+      monthsToYears: 12,
     },
   },
 
