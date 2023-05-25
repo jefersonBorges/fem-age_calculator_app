@@ -50,13 +50,12 @@ body {
   grid-template-columns: repeat(3, 23%);
   column-gap: 5%;
   grid-template-rows: auto;
-  
 }
 
 @media screen and (max-width: $w-mobile) {
 
   .main {
-    padding: $s-800 $s-400;
+    padding: $s-400 $s-200;
     border-radius: $s-300;
     border-bottom-right-radius: $s-1k5;
   }
@@ -69,6 +68,7 @@ body {
 }
 
 .form-section {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -120,8 +120,11 @@ body {
   }
 
   .message {
+    position: absolute;
+    top: 100%;
 
     display: none;
+    width: 100%;
     
     &.error{
       display: block;
@@ -184,16 +187,13 @@ body {
   }
 }
 
-
-
 @media screen and (max-width: $w-mobile) {
 
   .button-container {
     grid-template-columns: repeat(3, 33%);
     grid-template-rows: repeat(2, 50%);
     
-    margin-top: $s-300;
-    margin-bottom: $s-300;
+    margin: $s-500 0 $s-400 0;
     
     .hr {
       grid-area: 1/1 / 1/4;
